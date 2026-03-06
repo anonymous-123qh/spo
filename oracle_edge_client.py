@@ -82,7 +82,7 @@ class SPOEdgeNode:
             self.W = np.load(w_path)
             print(f"Edge: Loaded Task-Specific W from {w_path}")
         except FileNotFoundError:
-            # Fallback to identity (standard L2) if file is missing
+            #fallback to identity (standard L2) if file is missing
             self.W = None
             print(f"Edge: {task_name} W not found. Using identity matrix.")
 
