@@ -114,3 +114,6 @@ python3 edge_client.py \
 --hz 50 \
 --headless
 ```
+## Demo
+
+A video demonstration will be added here soon...
