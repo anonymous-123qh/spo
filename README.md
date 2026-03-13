@@ -1,13 +1,28 @@
-# spo
-Speculative Policy Orchestration: A Latency-Resilient Framework for Cloud-Robotic Manipulation
+# SPO
+**Speculative Policy Orchestration: A Latency-Resilient Framework for Cloud-Robotic Manipulation**
+
+## Overview
+SPO is a cloud-robotic execution framework designed to tolerate network latency during manipulation tasks. It combines speculative action fetching from the cloud with local edge-side verification and execution.
+This repository includes:
+- a **cloud server** that serves action/state chunks from an oracle dataset
+- an **edge client** that runs RLBench tasks and executes speculative actions
+- support for multiple execution modes:
+  - `spo`
+  - `blocking`
+  - `t1_sc`
+  - `nftc`
 
 ## Installation
 
 ### Prerequisites
-- Python 3.10 
-- pip
+- Python 3.10
+- `pip`
+- RLBench installed on the **client machine**
+- Two machines (cloud and client) with network connectivity such that the client can establish a connection to the cloud server and exchange data bidirectionally with it, for example:
+  - on the same LAN
+  - connected through a VPN such as Tailscale
 
-### Steps
+### Setup
 
 1. Clone the repository:
    ```bash
@@ -18,3 +33,84 @@ Speculative Policy Orchestration: A Latency-Resilient Framework for Cloud-Roboti
    ```bash
     pip install -r requirements.txt
     ```
+
+
+## Usage and Reproduce Results
+
+### Running the Oracle World Model Experiment
+### 1. Start the Cloud
+**Syntax**
+```bash
+python3 oracle_cloud_server.py \
+  --bind tcp://*:5555 \
+  --dataset <world_model_dataset> \
+  --state-dim <task_state_dimension> \
+  --net-latency <network_delay_seconds>
+```
+**Example**
+```bash
+python3 oracle_cloud_server.py \
+  --bind tcp://*:5555 \
+  --dataset spo_dataset_v2_identical/StackBlocks_data.npy \
+  --state-dim 148 \
+  --net-latency 0.150
+```
+### 2. Start the edge client:
+**Syntax**
+```bash
+python3 oracle_edge_client.py \
+  --task <task_name> \
+  --cloud tcp://<cloud_ip>:5555 \
+  --headless \
+  --hz <control_frequency> \
+  --eps <verification_threshold>
+```
+**Example**
+```bash
+python3 oracle_edge_client.py \
+  --task StackBlocks \
+  --cloud tcp://127.0.0.1:5555 \
+  --headless \
+  --hz 50 \
+  --eps 1.5
+```
+### Running the Trained World Model Experiment
+
+### 1. Start the cloud server
+The cloud server loads the trained world model and action model, then serves predicted trajectories to the edge client.
+
+**Syntax**
+```bash
+python3 cloud_server_final.py \
+  --bind tcp://*:5555 \
+  --state-dim <task_state_dimension> \
+  --world-model <world_model_path> \
+  --action-model <action_model_path> \
+  --net-latency <network_delay_seconds>
+```
+**Example**
+```bash
+python3 cloud_server_final.py \
+--bind tcp://*:5555 \
+--state-dim 148 \
+--world-model identity_model/spo_cloud_model_StackBlocks.pth \
+--action-model identity_model/spo_action_model_StackBlocks.pth \
+--net-latency 0.150 \
+```
+### 2. Start the edge client:
+**Syntax**
+```bash
+python3 edge_client.py \
+  --task <task_name> \
+  --cloud tcp://<cloud_ip>:5555 \
+  --hz <control_frequency> \
+  --headless
+```
+**Example**
+```bash
+python3 edge_client.py \
+--task StackBlocks \
+--cloud tcp://127.0.0.1:5555 \
+--hz 50 \
+--headless
+```
