@@ -81,7 +81,7 @@ The cloud server loads the trained world model and action model, then serves pre
 
 **Syntax**
 ```bash
-python3 cloud_server_final.py \
+python3 cloud_server.py \
   --bind tcp://*:5555 \
   --state-dim <task_state_dimension> \
   --world-model <world_model_path> \
@@ -90,7 +90,7 @@ python3 cloud_server_final.py \
 ```
 **Example**
 ```bash
-python3 cloud_server_final.py \
+python3 cloud_server.py \
 --bind tcp://*:5555 \
 --state-dim 148 \
 --world-model identity_model/spo_cloud_model_StackBlocks.pth \
