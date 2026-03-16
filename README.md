@@ -72,7 +72,7 @@ python3 oracle_edge_client.py \
   --cloud tcp://127.0.0.1:5555 \
   --headless \
   --hz 50 \
-  --eps 1.5
+  --eps 20
 ```
 ### Running the Trained World Model Experiment
 
