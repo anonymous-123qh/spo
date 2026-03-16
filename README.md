@@ -114,6 +114,16 @@ python3 edge_client.py \
 --hz 50 \
 --headless
 ```
-## Demo
+## Demo Video
 
-A video demonstration will be added here soon...
+## Demo Video
+
+### StackBlocks
+
+[![SPO StackBlocks demo](https://img.youtube.com/vi/IQnjq8ZxIrg/0.jpg)](https://www.youtube.com/watch?v=IQnjq8ZxIrg)
+
+### InsertOntoSquarePeg
+[![SPO InsertOntoSquarePeg demo](https://img.youtube.com/vi/XJIARVjhMj8/0.jpg)](https://www.youtube.com/watch?v=XJIARVjhMj8)
+
+### PutAllGroceriesInCupboard
+[![SPO PutAllGroceriesInCupboard demo](https://img.youtube.com/vi/GbojV6HF-90/0.jpg)](https://www.youtube.com/watch?v=GbojV6HF-90)
