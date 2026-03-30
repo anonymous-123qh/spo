@@ -2,8 +2,12 @@
 **Speculative Policy Orchestration: A Latency-Resilient Framework for Cloud-Robotic Manipulation**
 
 ## Overview
-SPO is a cloud-robotic execution framework designed to tolerate network latency during manipulation tasks. It combines speculative action fetching from the cloud with local edge-side verification and execution.
+SPO is a cloud-edge execution framework for robotic manipulation in settings where policy and world-model inference are hosted remotely rather than on the robot itself. This deployment model is useful when the robot is compute-constrained, when multiple robots share a centralized model service, or when large policy/world models are too expensive to run fully on-board.
+
+The challenge is that remote inference introduces network round-trip delay and jitter. In continuous manipulation, these delays can stall execution or make precomputed action chunks stale. SPO addresses this by combining speculative cloud-side rollout with local edge-side verification and execution.
+
 This repository includes:
+
 - a **cloud server** that serves action/state chunks from an oracle dataset
 - an **edge client** that runs RLBench tasks and executes speculative actions
 - support for multiple execution modes:
@@ -116,7 +120,7 @@ python3 edge_client.py \
 ```
 ## Demo Video
 
-## Demo Video
+
 
 ### StackBlocks
 
